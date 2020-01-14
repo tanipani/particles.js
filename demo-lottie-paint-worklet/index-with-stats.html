@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+  <title>particles.js</title>
+    <link rel="stylesheet" media="screen" href="css/style.css">
+  <style>
+    #lottie {
+      width:400px;
+      height:400px;
+      background-color: transparent;
+
+      position:absolute;
+      left:0; right:0;
+      top:0; bottom:0;
+      margin:auto;
+
+      /* don't cut content when the window is smaller than the content */
+      max-width:100%;
+      max-height:100%;
+      overflow:auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- count particles -->
+<div class="count-particles">
+  <span class="js-count-particles">--</span> particles
+</div>
+
+<!-- particles.js container -->
+<div id="particles-js"></div>
+<!-- lottie container -->
+<div id="lottie"></div>
+
+<!-- scripts -->
+<script src="../particles.js"></script>
+<script src="js/app.js"></script>
+<script src="./lottie.min.js"></script>
+
+
+<!-- stats.js -->
+<script src="js/lib/stats.js"></script>
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+
+  var animData = {
+      wrapper: document.getElementById('lottie'),
+      animType: 'canvas',
+      loop: true,
+      prerender: true,
+      autoplay: true,
+      path: 'christmas-tree.json'
+
+    };
+    var anim = bodymovin.loadAnimation(animData);
+</script>
+
+</body>
+</html>
